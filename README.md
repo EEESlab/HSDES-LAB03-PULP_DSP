@@ -31,7 +31,7 @@ The code is organized in four files:
 - `conv_kernel.c` is the actual convolution kernel;
 - `conv_kernel.h` is the header of `conv_kernel.c`, used to include its function.
 - `data.h` includes the input data and filter.
-
+In this Google Colab notebook you can find a full description of the operation that is performed by the filter.
 
 ## Running the example
 Enough with basic information: let's make this example work.
