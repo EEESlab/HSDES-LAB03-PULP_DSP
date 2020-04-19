@@ -1,6 +1,5 @@
 This is a basic exercise for the Hardware-Software Design of Embedded Systems class (a.y. 2019-2020).
 
-# Instructions
 ## Prerequisites
 These instructions do not make many assumptions on your knowledge of a Linux command line, but you should know your way around a bit.
 In particular, you should know how to open a terminal and have a (minimal!) confidence with applications based on a command line interface.
@@ -11,11 +10,13 @@ https://ubuntu.com/tutorials/command-line-for-beginners
 PULPissimo, which will be presented during the lecture, is a single-core PULP system, with one RISC-V core augmented with digital signal processing extensions to the ISA.
 PULPissimo is fully open-source, including all the RTL code (written in SystemVerilog), FPGA synthesis scripts, the high-level simulator we use in this exercise, and the software running on it.
 You can get a look at PULPissimo here: https://github.com/pulp-platform/pulpissimo
+
 For this simple exercise, you will not need to download the full platform: what you need is already available in your *pulp-box* virtual machine.
 
 ## The SDK
 The PULP Software Development Kit (SDK) is the main tool that we will use during this exercise. It will be configured to target PULPissimo, the single-core MCU platform that will be presented during the lecture.
-The *pulp-box* virtual platform comes with the SDK preinstalled; you can find more information about the SDK here if you are interested: https://github.com/pulp-platform/pulp-sdk . 
+The *pulp-box* virtual platform comes with the SDK preinstalled; you can find more information about the SDK here if you are interested: https://github.com/pulp-platform/pulp-sdk.
+
 We will use mainly two components of the SDK:
 - APIs like `pulp-rt`, which provides a relatively high-level access to the software ecosystem; and `hal`, which gives lower level access to the hardware
 - a simulator (virtual platform) called *GVSOC*. GVSOC is an open-source project that enables to simulate PULP-based chips directly on your computer, without the complexity of running a full RTL platform simulation.
@@ -31,7 +32,7 @@ The code is organized in four files:
 - `conv_kernel.c` is the actual convolution kernel;
 - `conv_kernel.h` is the header of `conv_kernel.c`, used to include its function.
 - `data.h` includes the input data and filter.
-In this Google Colab notebook you can find a full description of the operation that is performed by the filter.
+In this Google Colab notebook you can find a full description of the operation that is performed by the filter: https://colab.research.google.com/drive/1eebiD-10vLbwi1qPG0DpL9KnzY_GStPb
 
 ## Running the example
 Enough with basic information: let's make this example work.
