@@ -2,14 +2,14 @@
 #include <stdint.h>
 
 #define FRACTIONARY_BITS 7
-#define ROUNDBIT   (1 << (FRACTIONARY_BITS -1 -1))
-#define SATURATION ((1 << (FRACTIONARY_BITS -1)) -1)
+#define ROUNDBIT   (1 << (FRACTIONARY_BITS -1))
+#define SATURATION 255
 
-void __attribute__ ((noinline)) ConvKxK_Naive  (int8_t * In_Img, int8_t * Out_Img, int R, int lb, int ub, int C, int8_t  * Kernel, int K)
+void __attribute__ ((noinline)) ConvKxK_Naive  (uint8_t * In_Img, uint8_t * Out_Img, int R, int lb, int ub, int C, uint8_t  * Kernel, int K)
 {
   int r, c, k, i, j, w, t;
-  int8_t coeff;
-  int8_t data;
+  uint8_t coeff;
+  uint8_t data;
   int S;
 
   //image board is black
@@ -35,14 +35,14 @@ void __attribute__ ((noinline)) ConvKxK_Naive  (int8_t * In_Img, int8_t * Out_Im
         }
 
         // Rounding
-        S = S + ROUNDBIT;
+        // S = S + ROUNDBIT;
         // Normalization: Data are Q2.2*(FRACTIONARY_BITS-1), now Q2.FRACTIONARY_BITS-1
-        S = S >> (FRACTIONARY_BITS-1);
+        S = S >> FRACTIONARY_BITS;
         // Saturation
         S = S > SATURATION ? SATURATION : S;
         S = S <          0 ?          0 : S;
 
-        Out_Img[t] = (int8_t)(S);
+        Out_Img[t] = (uint8_t)(S);
     }
   }
 }

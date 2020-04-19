@@ -6,10 +6,10 @@
 #define NB_ITER 1
 
 void check_function (int *errors, rt_perf_t *perf);
-void __attribute__ ((noinline))  InitData         (int8_t * __restrict__ Img,    int size);
-void __attribute__ ((noinline))  InitZero         (int8_t * __restrict__ Img,    int size);
-void __attribute__ ((noinline))  InitKernel       (int8_t * __restrict__ Kernel, int size);
-int  __attribute__ ((noinline))  checkresult      (int8_t * __restrict__ Out, int8_t * __restrict__ OutGold, int N);
+void __attribute__ ((noinline))  InitData         (uint8_t * __restrict__ Img,    int size);
+void __attribute__ ((noinline))  InitZero         (uint8_t * __restrict__ Img,    int size);
+void __attribute__ ((noinline))  InitKernel       (uint8_t * __restrict__ Kernel, int size);
+int  __attribute__ ((noinline))  checkresult      (uint8_t * __restrict__ Out, uint8_t * __restrict__ OutGold, int N);
 
 int main()
 {
@@ -27,9 +27,9 @@ int main()
   }
 }
 
-static int8_t  __attribute__ ((section(".heapsram")))  Out[IMG_DIM];
-static int8_t  __attribute__ ((section(".heapsram")))  In[IMG_DIM];
-static int8_t  __attribute__ ((section(".heapsram")))  Kernel[FILT_DIM];
+static uint8_t  __attribute__ ((section(".heapsram")))  Out[IMG_DIM];
+static uint8_t  __attribute__ ((section(".heapsram")))  In[IMG_DIM];
+static uint8_t  __attribute__ ((section(".heapsram")))  Kernel[FILT_DIM];
 
 void check_function(int *errors, rt_perf_t *perf) {
 
@@ -47,7 +47,7 @@ void check_function(int *errors, rt_perf_t *perf) {
   // number of rows each core has to convolve
   chunk = IMG_ROW / num_cores;
   // lower bound
-  lb = core_id * chunk;
+  lb = 0;
   // upper bound
   ub = lb + chunk;
 
@@ -59,7 +59,7 @@ void check_function(int *errors, rt_perf_t *perf) {
   synch_barrier();
 
   if(core_id == 0){
-    printf("2D Convolution WINDOW=%d, DATA FORMAT Q1.%d\n",FILT_WIN,DATA_WIDTH-1);
+    printf("2D Convolution WINDOW=%d, DATA FORMAT Q%d.%d\n",FILT_WIN,8-FRACTIONARY_BITS,FRACTIONARY_BITS);
     InitKernel(Kernel,FILT_WIN);
     InitData(In, IMG_DIM);
     InitZero(Out, IMG_DIM);
@@ -79,7 +79,7 @@ void check_function(int *errors, rt_perf_t *perf) {
 }
 
 // load kernel
-void __attribute__ ((noinline)) InitKernel(int8_t * __restrict__ Kernel, int size)
+void __attribute__ ((noinline)) InitKernel(uint8_t * __restrict__ Kernel, int size)
 {
   int i;
   int n = size*size;
@@ -89,7 +89,7 @@ void __attribute__ ((noinline)) InitKernel(int8_t * __restrict__ Kernel, int siz
 }
 
 // load input img
-void __attribute__ ((noinline)) InitData(int8_t * __restrict__ Img, int size)
+void __attribute__ ((noinline)) InitData(uint8_t * __restrict__ Img, int size)
 {
   int i;
 
@@ -99,7 +99,7 @@ void __attribute__ ((noinline)) InitData(int8_t * __restrict__ Img, int size)
 }
 
 // load initialize out to 0
-void __attribute__ ((noinline)) InitZero(int8_t * __restrict__ Img, int size)
+void __attribute__ ((noinline)) InitZero(uint8_t * __restrict__ Img, int size)
 {
   int i;
 
@@ -108,7 +108,7 @@ void __attribute__ ((noinline)) InitZero(int8_t * __restrict__ Img, int size)
 
 }
 
-int  __attribute__ ((noinline)) checkresult(int8_t * __restrict__ Out, int8_t * __restrict__ OutGold, int N)
+int  __attribute__ ((noinline)) checkresult(uint8_t * __restrict__ Out, uint8_t * __restrict__ OutGold, int N)
 {
   int i;
   int err = 0;
@@ -124,10 +124,10 @@ int  __attribute__ ((noinline)) checkresult(int8_t * __restrict__ Out, int8_t * 
   return err;
 }
 
-void print_image(int8_t* image, int N, int M) {
+void print_image(uint8_t* image, int N, int M) {
   for (int y = 0; y < M; y++) {
     for (int x = 0; x < N; x++)
-      printf("%3x", (int8_t) image[M * y + x]);
+      printf("%d,", (uint8_t) image[M * y + x]);
 
     printf("\n");
   }
