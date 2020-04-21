@@ -61,5 +61,6 @@ make run
 The expected output is
 ```
 errors=0
-cycles=269465
+E
+cycles=265621
 ```
