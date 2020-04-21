@@ -47,7 +47,7 @@ Configuring PULP SDK at: /pulp/pkg/sdk/2020.01.01
 ```
 Now the SDK can be used in your setup. As a first thing, download this example in your home folder and enter it:
 ```
-git clone https://github.com/hsdes_mcu_conv_naive
+git clone https://github.com/EEESLab/hsdes_mcu_conv_naive
 cd hsdes_mcu_conv_naive
 ```
 Now you can try to build the example:
