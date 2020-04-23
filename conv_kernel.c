@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include "pulp.h"
 
 /*
   Inputs, weights and outputs are represented in fixed-point Q1.7 unsigned format:
