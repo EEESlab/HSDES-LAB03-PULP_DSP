@@ -2,7 +2,7 @@
 
 The goals of this lab session are:
 1) SIMD Vectorized FIR Filters
-2) Loop Unrolling tecnquiques for Matrix Multiplications
+2) Loop Unrolling techniques for Matrix Multiplications
 3) SIMD Vectorized MatMul (on your own)
 4) Convolution on PULP
 
