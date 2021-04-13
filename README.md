@@ -6,7 +6,7 @@ The goals of this lab session are:
 3) SIMD Vectorized MatMul (on your own)
 4) Convolution on PULP
 
-A final assignment is described [here]()
+A final assignment is described [here](https://github.com/EEESlab/HSDES-LAB03-PULP_DSP/blob/master/lab_assignment/README.md)
 
 
 ## Getting Started
