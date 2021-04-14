@@ -58,7 +58,7 @@ int main()
   C = 0;
   for(int i=0;i<N; i++){
     C =__builtin_pulp_mac(A[i], B[i], C);
-    C += A[i] * B[i]; // uncomment and check the performance
+//    C += A[i] * B[i]; // uncomment and check the performance
   }
   //*****************************************
 
