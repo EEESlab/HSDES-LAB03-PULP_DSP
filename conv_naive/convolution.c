@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-#include "pulp.h"
+#include "pmsis.h"
 #include "conv_kernel.h"
 #include "data.h"
-#include <stdio.h>
 
 #define NB_ITER 1
 
-void check_function (int *errors, rt_perf_t *perf);
+// global define
+static uint8_t  Out[IMG_DIM];
+static uint8_t  In[IMG_DIM];
+static uint8_t  Kernel[FILT_DIM];
+
+// function prototypes
+void check_function (int *errors);
 void __attribute__ ((noinline))  InitData         (uint8_t * __restrict__ Img,    int size);
 void __attribute__ ((noinline))  InitZero         (uint8_t * __restrict__ Img,    int size);
 void __attribute__ ((noinline))  InitKernel       (uint8_t * __restrict__ Kernel, int size);
@@ -30,29 +35,23 @@ int  __attribute__ ((noinline))  checkresult      (uint8_t * __restrict__ Out, u
 int main()
 {
   int errors = 0;
-  rt_perf_t perf;
   for(int i=0; i<NB_ITER; i++) {
-    check_function(&errors, &perf);
+    check_function(&errors);
   }
-  synch_barrier();
 
-  if(get_core_id() == 0) {
-    printf("errors=%d\n", errors);
-    printf("cycles=%d\n", rt_perf_read(RT_PERF_CYCLES));
-    return errors;
-  }
+  printf("errors=%d\n", errors);
+  printf("cycles=%d\n", pi_perf_read(PI_PERF_CYCLES) );
+  return errors;
 }
 
-static uint8_t  __attribute__ ((section(".heapsram")))  Out[IMG_DIM];
-static uint8_t  __attribute__ ((section(".heapsram")))  In[IMG_DIM];
-static uint8_t  __attribute__ ((section(".heapsram")))  Kernel[FILT_DIM];
 
-void check_function(int *errors, rt_perf_t *perf) {
+
+void check_function(int *errors) {
 
   // start benchmark
 #ifdef CLUSTER
-  unsigned int core_id = get_core_id();
-  unsigned int num_cores = get_core_num();
+  unsigned int core_id = pi_core_id();
+  unsigned int num_cores = pi_core_num();
 #else
   unsigned int core_id = 0;
   unsigned int num_cores = 1;
@@ -72,26 +71,25 @@ void check_function(int *errors, rt_perf_t *perf) {
   if(core_id == num_cores-1)
     ub-=1; //last core does not compute last row (black board)
 
-  synch_barrier();
 
-  if(core_id == 0){
-    printf("2D Convolution WINDOW=%d, DATA FORMAT Q%d.%d\n",FILT_WIN,8-FRACTIONARY_BITS,FRACTIONARY_BITS);
-    InitKernel(Kernel,FILT_WIN);
-    InitData(In, IMG_DIM);
-    InitZero(Out, IMG_DIM);
-  }
+  printf("2D Convolution WINDOW=%d, DATA FORMAT Q%d.%d\n",FILT_WIN,8-FRACTIONARY_BITS,FRACTIONARY_BITS);
+  InitKernel(Kernel,FILT_WIN);
+  InitData(In, IMG_DIM);
+  InitZero(Out, IMG_DIM);
 
-  synch_barrier();
 
-  rt_perf_reset(perf);
-  rt_perf_start(perf);
+  pi_perf_stop(); // stop the performance counters
+  pi_perf_reset();
+  pi_perf_start();
+
+  //convolution task
   ConvKxK_Naive(In, Out, IMG_ROW, lb, ub, IMG_COL, Kernel, 3);
-  synch_barrier();
-  rt_perf_stop(perf);
+
+  pi_perf_stop();
   if(core_id == 0){
     *errors = checkresult(Out, Gold_Out_Img, IMG_DIM);
   }
-  synch_barrier();
+
 }
 
 // load kernel

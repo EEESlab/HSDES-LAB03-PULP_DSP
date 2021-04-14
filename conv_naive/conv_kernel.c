@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-#include <stdio.h>
-#include <stdint.h>
-#include "pulp.h"
+#include "pmsis.h"
+
 
 /*
   Inputs, weights and outputs are represented in fixed-point Q1.7 unsigned format:
