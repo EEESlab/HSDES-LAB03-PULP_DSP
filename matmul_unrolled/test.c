@@ -253,7 +253,7 @@ int main()
     );
 
 /******************************************
-         MatMul no unrolled
+         MatMul no unrolled (Baseline)
 ******************************************/
     printf("\n\n*** MatMul Baseline ***\n");
 
@@ -280,7 +280,7 @@ int main()
 
 
 /******************************************
-         MatMul w/ unrolled
+         MatMul w/ unrolling 1x2
 ******************************************/
     printf("\n\n*** MatMul With Unrolling 1x2 ***\n");
 
@@ -305,7 +305,7 @@ int main()
     check_result_matmul(MatC, MatC_golden, N_MAT);
 
 /******************************************
-         MatMul w/ unrolled 2
+         MatMul w/ unrolling 1x4
 ******************************************/
     printf("\n\n*** MatMul With Unrolling 1x4 ***\n");
 
@@ -330,7 +330,7 @@ int main()
     check_result_matmul(MatC, MatC_golden, N_MAT);
 
 /******************************************
-         MatMul w/ unrolled 3
+         MatMul w/ unrolling 1x8
 ******************************************/
     printf("\n\n*** MatMul With Unrolling 1x8 ***\n");
 
@@ -355,7 +355,7 @@ int main()
     check_result_matmul(MatC, MatC_golden, N_MAT);
 
 /******************************************
-         MatMul w/ unrolled 4
+         MatMul w/ unrolling 2x4
 ******************************************/
     printf("\n\n*** MatMul With Unrolling 2x4 ***\n");
 
@@ -380,7 +380,7 @@ int main()
     check_result_matmul(MatC, MatC_golden, N_MAT);
 
 /******************************************
-         MatMul w/ unrolled 5
+         MatMul w/ unrolling 4x4
 ******************************************/
     printf("\n\n*** MatMul With Unrolling 4x4 ***\n");
 
