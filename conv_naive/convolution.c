@@ -48,31 +48,12 @@ int main()
 
 void check_function(int *errors) {
 
-  // start benchmark
-#ifdef CLUSTER
-  unsigned int core_id = pi_core_id();
-  unsigned int num_cores = pi_core_num();
-#else
-  unsigned int core_id = 0;
-  unsigned int num_cores = 1;
-#endif
-  unsigned int chunk;
-  unsigned int lb, ub;
-
-  // number of rows each core has to convolve
-  chunk = IMG_ROW / num_cores;
-  // lower bound
-  lb = 0;
-  // upper bound
-  ub = lb + chunk;
-
-  if(core_id == 0)
-    lb+=1; //core0 does not compute first row (black board)
-  if(core_id == num_cores-1)
-    ub-=1; //last core does not compute last row (black board)
-
-
   printf("2D Convolution WINDOW=%d, DATA FORMAT Q%d.%d\n",FILT_WIN,8-FRACTIONARY_BITS,FRACTIONARY_BITS);
+
+  // upper and lower bounds 
+  unsigned int lb =1;           // does not compute first row (black board)
+  unsigned int ub = IMG_ROW -1; // does not compute last row (black board)
+
   InitKernel(Kernel,FILT_WIN);
   InitData(In, IMG_DIM);
   InitZero(Out, IMG_DIM);
@@ -86,9 +67,8 @@ void check_function(int *errors) {
   ConvKxK_Naive(In, Out, IMG_ROW, lb, ub, IMG_COL, Kernel, 3);
 
   pi_perf_stop();
-  if(core_id == 0){
-    *errors = checkresult(Out, Gold_Out_Img, IMG_DIM);
-  }
+
+  *errors = checkresult(Out, Gold_Out_Img, IMG_DIM);
 
 }
 
