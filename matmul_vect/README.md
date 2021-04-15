@@ -19,4 +19,5 @@ Hint: pay attention to the left-over.
 Optional 3) Cast the matrix A to _short int_ and design an optimized matrix multiplication function.
 
 
-
+### Update 
+The optimized vectorized MatMul can be find on _test2.c_.
