@@ -19,7 +19,7 @@
 
 /*
   Inputs, weights and outputs are represented in fixed-point Q1.7 unsigned format:
-  this means that each integer in [0-255] represents a real value in the range [0.0-1.0)
+  this means that each integer in [0-255] represents a real value in the range [0.0-2.0)
   The relationship between the integer I and real R representations is given by
 
      R = I * 2^-FRACTIONARY_BITS
