@@ -1,4 +1,4 @@
-# Unrolling a MatMul Functions
+# Optimized 8-bit MatMul Function
 
 This example code includes the function _matmul_int8_ that computes the multiplication betweent two _int8_ 2D arrays *A* and *B*.
 The result of the matrix multiplication is checked against the provided golden sample data. 
