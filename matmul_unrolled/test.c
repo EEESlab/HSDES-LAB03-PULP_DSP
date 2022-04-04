@@ -13,8 +13,8 @@
 #include "data.h"
 
 
-int MatA[N_MAT*N_MAT] = DATA_A;  
-int MatB[N_MAT*N_MAT] = DATA_B; 
+char MatA[N_MAT*N_MAT] = DATA_A;  
+char MatB[N_MAT*N_MAT] = DATA_B; 
 int MatC[N_MAT*N_MAT];  // output array 
 int MatC_golden[N_MAT*N_MAT] = DATA_C; // precomputed glden model
 
@@ -38,7 +38,7 @@ void reset_output_mat(int * in1, int size){
 }
 
 
-void matmul_int32(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     for (int i = 0; i < MN; i++) {
       for (int j = 0; j < NN; j++) {
@@ -51,7 +51,7 @@ void matmul_int32(int * in1, int * in2, int* out3,int MN, int NN, int KN){
     }//i
 }
 
-void matmul_int32_unroll1x2(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32_unroll1x2(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     for (int i = 0; i < MN; i++) {
       for (int j = 0; j < NN; j=j+2) {
@@ -69,7 +69,7 @@ void matmul_int32_unroll1x2(int * in1, int * in2, int* out3,int MN, int NN, int 
     }//i
 }
 
-void matmul_int32_unroll1x4(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32_unroll1x4(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     for (int i = 0; i < MN; i++) {
       for (int j = 0; j < NN; j=j+4) {
@@ -94,7 +94,7 @@ void matmul_int32_unroll1x4(int * in1, int * in2, int* out3,int MN, int NN, int 
 }
 
 
-void matmul_int32_unroll1x8(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32_unroll1x8(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     for (int i = 0; i < MN; i++) {
       for (int j = 0; j < NN; j=j+8) {
@@ -129,7 +129,7 @@ void matmul_int32_unroll1x8(int * in1, int * in2, int* out3,int MN, int NN, int 
     }//i
 }
 
-void matmul_int32_unroll2x4(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32_unroll2x4(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     int acc0, acc1, acc2, acc3,
         acc4, acc5, acc6, acc7;
@@ -170,7 +170,7 @@ void matmul_int32_unroll2x4(int * in1, int * in2, int* out3,int MN, int NN, int 
     }//i
 }
 
-void matmul_int32_unroll4x4(int * in1, int * in2, int* out3,int MN, int NN, int KN){
+void matmul_int32_unroll4x4(char * in1, char * in2, int* out3,int MN, int NN, int KN){
     // task to profile
     int acc0, acc1, acc2, acc3,
         acc4, acc5, acc6, acc7,
