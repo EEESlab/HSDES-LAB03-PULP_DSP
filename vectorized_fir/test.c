@@ -34,7 +34,7 @@ int main()
 
   // define variables
   uint32_t instr_cnt,cycles_cnt;
-  float cpi, mac_cyc;
+  float cpi, mac_cyc, instr_mac;
   int C;  // accumulator
 
   // number of MAC
@@ -68,9 +68,10 @@ int main()
   cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
   cpi = (float) cycles_cnt / instr_cnt;
   mac_cyc = (float) mac / cycles_cnt;
+  instr_mac = (float) instr_cnt / mac;
 
-  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-      instr_cnt, cycles_cnt, cpi, mac_cyc);
+  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+      instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
   if (C == DATA_C)
     printf("Checksum: %d OK!\n", C);
   else
@@ -97,9 +98,10 @@ int main()
   cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
   cpi = (float) cycles_cnt / instr_cnt;
   mac_cyc = (float) mac / cycles_cnt;
+  instr_mac = (float) instr_cnt / mac;
 
-  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-      instr_cnt, cycles_cnt, cpi, mac_cyc);
+  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+      instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
   //print the checksum
   if (C == DATA_C)
     printf("Checksum: %d OK!\n", C);
@@ -129,9 +131,10 @@ int main()
   cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
   cpi = (float) cycles_cnt / instr_cnt;
   mac_cyc = (float) mac / cycles_cnt;
+  instr_mac = (float) instr_cnt / mac;
 
-  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-      instr_cnt, cycles_cnt, cpi, mac_cyc);
+  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+      instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
   //print the checksum
   if (C == DATA_C)
     printf("Checksum: %d OK!\n", C);
@@ -160,9 +163,10 @@ int main()
   cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
   cpi = (float) cycles_cnt / instr_cnt;
   mac_cyc = (float) mac / cycles_cnt;
+  instr_mac = (float) instr_cnt / mac;
 
-  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-      instr_cnt, cycles_cnt, cpi, mac_cyc);
+  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+      instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
   //print the checksum
   if (C == DATA_C)
     printf("Checksum: %d OK!\n", C);
@@ -192,9 +196,10 @@ int main()
   cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
   cpi = (float) cycles_cnt / instr_cnt;
   mac_cyc = (float) mac / cycles_cnt;
+  instr_mac = (float) instr_cnt / mac;
 
-  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-      instr_cnt, cycles_cnt, cpi, mac_cyc);
+  printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+      instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
   //print the checksum
   if (C == DATA_C)
     printf("Checksum: %d OK!\n", C);
