@@ -59,7 +59,7 @@ int main()
 
     // define variables
     uint32_t instr_cnt,cycles_cnt;
-    float cpi, mac_cyc;
+    float cpi, mac_cyc, instr_mac;
     int mac = N_MAT * N_MAT * N_MAT;
 
     pi_perf_conf(
@@ -87,9 +87,10 @@ int main()
     cycles_cnt = pi_perf_read(PI_PERF_CYCLES);
     cpi = (float) cycles_cnt / instr_cnt;
     mac_cyc = (float) mac / cycles_cnt;
+    instr_mac = (float) instr_cnt / mac;
 
-    printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\n", 
-        instr_cnt, cycles_cnt, cpi, mac_cyc);
+    printf("Number of Instructions: %d\nClock Cycles: %d\nCPI: %f\nMAC/cyc: %f\nInstr/MAC: %f\n", 
+        instr_cnt, cycles_cnt, cpi, mac_cyc, instr_mac);
     //print the checksum
     check_result_matmul(MatC, MatC_golden, N_MAT);
 
