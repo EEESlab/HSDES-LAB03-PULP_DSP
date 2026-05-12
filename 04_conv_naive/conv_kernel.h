@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2015-2020 ETH Zurich and University of Bologna
- * 
+ * Copyright (C) 2026 ETH Zurich and University of Bologna
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
-void __attribute__ ((noinline))  ConvKxK_Naive    (int8_t * In_Img, int8_t * Out_Img, int R, int lb, int ub, int C, int8_t  * Kernel, int K);
+#ifndef CONV_KERNEL_H
+#define CONV_KERNEL_H
+
+void __attribute__((noinline)) ConvKxK_Naive(uint8_t *In_Img, uint8_t *Out_Img, int R, int lb, int ub, int C, uint8_t *Kernel, int K);
+
+#endif /* CONV_KERNEL_H */
